@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>相信热爱的我们</title>
+    <url>/2022/01/25/homework/</url>
+    <content><![CDATA[<h5 id="优于别人，并不高贵，真正的高贵因该是优于过去的自己。"><a href="#优于别人，并不高贵，真正的高贵因该是优于过去的自己。" class="headerlink" title="优于别人，并不高贵，真正的高贵因该是优于过去的自己。"></a>优于别人，并不高贵，真正的高贵因该是优于过去的自己。</h5><p align="right"> <i><b>——海明威</b></i></p>
+
+<span id="more"></span>
+
+<p>​        十年，你肯定已经不是现在这个焦虑，烦恼的你了，也不会是现在学识尚浅的你了，但是我能肯定你仍然是那个热爱的你。现在选择的道路是源于热爱，相信凭借这份热爱肯定能坚持走下去，并且成功找到喜欢的工作，也许是网络安全领域的一名科研工作者，也许是某企业的一名网络安全人员。每天跟众多安全漏洞打交道，维护网络安全的同时更新自己的知识储备，这就是理想中的工作特性。也许你还是像以前一样不喜欢舞台前的光鲜亮丽，更想当一个幕后人员，不喜欢抛头露面的工作，默默潜心专研的工作状态更能吸引你。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    print(<span class="string">&quot;Hello World!\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello World!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">write</span>(<span class="string">&quot;Hello World1&quot;</span>);</span><br><span class="line">    &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">echo</span><span class="string">&#x27;Hello World!&#x27;</span>;</span><br><span class="line">    <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorld</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span><span class="string">&#x27;Hello World!&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>十年后的你肯定什么都不缺，以上的代码块，就当作是留给你的礼物，那是所有选择的起点，希望那时的你是能掌握以上语言的一名全栈工程师。不要忘记当时的那种热爱，继续保持，一直走下去！</p>
+]]></content>
+      <tags>
+        <tag>life</tag>
+      </tags>
+  </entry>
+</search>
