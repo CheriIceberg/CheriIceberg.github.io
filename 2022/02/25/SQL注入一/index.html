@@ -23,28 +23,39 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cheriiceberg.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-  <meta name="description" content="优于别人，并不高贵，真正的高贵因该是优于过去的自己。 ——海明威">
+  <meta name="description" content="0x00    环境配置与工具​        phpstudy2018、sqli_lab（sqli_lab的运行最好使用旧版本php，这里使用php5.x）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="相信热爱的我们">
-<meta property="og:url" content="https://cheriiceberg.github.io/2022/01/25/homework/index.html">
+<meta property="og:title" content="SQL注入一">
+<meta property="og:url" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/index.html">
 <meta property="og:site_name" content="P27の博客">
-<meta property="og:description" content="优于别人，并不高贵，真正的高贵因该是优于过去的自己。 ——海明威">
+<meta property="og:description" content="0x00    环境配置与工具​        phpstudy2018、sqli_lab（sqli_lab的运行最好使用旧版本php，这里使用php5.x）">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-25T07:47:16.737Z">
-<meta property="article:modified_time" content="2022-03-29T02:27:33.696Z">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/sqli-lab.png">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/phpstudy.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/openphp.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/php.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/WWW.png">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/connection.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/duankou.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/database.jpg">
+<meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/success.jpg">
+<meta property="article:published_time" content="2022-02-25T06:43:02.000Z">
+<meta property="article:modified_time" content="2022-02-25T14:32:14.507Z">
 <meta property="article:author" content="P 27">
-<meta property="article:tag" content="life">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="WEB">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/sqli-lab.png">
 
 
-<link rel="canonical" href="https://cheriiceberg.github.io/2022/01/25/homework/">
+<link rel="canonical" href="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cheriiceberg.github.io/2022/01/25/homework/","path":"2022/01/25/homework/","title":"相信热爱的我们"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/","path":"2022/02/25/SQL注入一/","title":"SQL注入一"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>相信热爱的我们 | P27の博客</title>
+<title>SQL注入一 | P27の博客</title>
   
 
 
@@ -150,7 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E4%BA%8E%E5%88%AB%E4%BA%BA%EF%BC%8C%E5%B9%B6%E4%B8%8D%E9%AB%98%E8%B4%B5%EF%BC%8C%E7%9C%9F%E6%AD%A3%E7%9A%84%E9%AB%98%E8%B4%B5%E5%9B%A0%E8%AF%A5%E6%98%AF%E4%BC%98%E4%BA%8E%E8%BF%87%E5%8E%BB%E7%9A%84%E8%87%AA%E5%B7%B1%E3%80%82"><span class="nav-text">优于别人，并不高贵，真正的高贵因该是优于过去的自己。</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%B7%A5%E5%85%B7"><span class="nav-text">0x00    环境配置与工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="nav-text">0x01    环境安装配置</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -220,7 +231,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cheriiceberg.github.io/2022/01/25/homework/">
+    <link itemprop="mainEntityOfPage" href="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -233,14 +244,10 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          相信热爱的我们
+          SQL注入一
         </h1>
 
         <div class="post-meta-container">
-          
-            <i class="fa fa-thumbtack"></i>
-            <font color="grey">置顶</font>
-            <span class="post-meta-divider">|</span>
           
           <div class="post-meta">
     <span class="post-meta-item">
@@ -248,19 +255,22 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-01-25 15:47:16" itemprop="dateCreated datePublished" datetime="2022-01-25T15:47:16+08:00">2022-01-25</time>
+      <time title="创建时间：2022-02-25 14:43:02 / 修改时间：22:32:14" itemprop="dateCreated datePublished" datetime="2022-02-25T14:43:02+08:00">2022-02-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
+        <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-29 10:27:33" itemprop="dateModified" datetime="2022-03-29T10:27:33+08:00">2022-03-29</time>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
+        </span>
     </span>
 
   
-    <span id="/2022/01/25/homework/" class="post-meta-item twikoo_visitors" data-flag-title="相信热爱的我们" title="阅读次数">
+    <span id="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/" class="post-meta-item twikoo_visitors" data-flag-title="SQL注入一" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -277,26 +287,32 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h5 id="优于别人，并不高贵，真正的高贵因该是优于过去的自己。"><a href="#优于别人，并不高贵，真正的高贵因该是优于过去的自己。" class="headerlink" title="优于别人，并不高贵，真正的高贵因该是优于过去的自己。"></a>优于别人，并不高贵，真正的高贵因该是优于过去的自己。</h5><p align="right"> <i><b>——海明威</b></i></p>
-
+        <h2 id="0x00-环境配置与工具"><a href="#0x00-环境配置与工具" class="headerlink" title="0x00    环境配置与工具"></a>0x00    环境配置与工具</h2><p>​        phpstudy2018、sqli_lab（sqli_lab的运行最好使用旧版本php，这里使用php5.x）</p>
 <span id="more"></span>
 
-<p>​        十年，你肯定已经不是现在这个焦虑，烦恼的你了，也不会是现在学识尚浅的你了，但是我能肯定你仍然是那个热爱的你。现在选择的道路是源于热爱，相信凭借这份热爱肯定能坚持走下去，并且成功找到喜欢的工作，也许是网络安全领域的一名科研工作者，也许是某企业的一名网络安全人员。每天跟众多安全漏洞打交道，维护网络安全的同时更新自己的知识储备，这就是理想中的工作特性。也许你还是像以前一样不喜欢舞台前的光鲜亮丽，更想当一个幕后人员，不喜欢抛头露面的工作，默默潜心专研的工作状态更能吸引你。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sqli_lab可以从github上直接下载：<a target="_blank" rel="noopener" href="https://github.com/Audi-1/sqli-labs">https://github.com/Audi-1/sqli-labs</a></p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/sqli-lab.png"></p>
+<p>phpstudy2018、sqli_lab都打包在一下网盘链接里，直接获取</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">链接：https://pan.baidu.com/s/1UBWgP4RTyeHSwLo7-elfgg </span><br><span class="line">提取码：ycnm</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    print(<span class="string">&quot;Hello World!\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello World!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">write</span>(<span class="string">&quot;Hello World1&quot;</span>);</span><br><span class="line">    &lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">echo</span><span class="string">&#x27;Hello World!&#x27;</span>;</span><br><span class="line">    <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorld</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span><span class="string">&#x27;Hello World!&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>十年后的你肯定什么都不缺，以上的代码块，就当作是留给你的礼物，那是所有选择的起点，希望那时的你是能掌握以上语言的一名全栈工程师。不要忘记当时的那种热爱，继续保持，一直走下去！</p>
+<h2 id="0x01-环境安装配置"><a href="#0x01-环境安装配置" class="headerlink" title="0x01    环境安装配置"></a>0x01    环境安装配置</h2><p>首先解压后右键点击以管理员身份运行phpstudy2018.exe文件，选择安装路径，<strong>注意安装路径中不能包含中文与空格</strong>.</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/phpstudy.jpg"></p>
+<p>在安装路径下找到phpstudy.exe文件即可运行</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/openphp.jpg"></p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/php.jpg"></p>
+<p>在切换版本里可以选择不同的php版本，系统服务选中时会在设备开机时自动打开此系统。</p>
+<p>接下来是sqli_lab的配置，将GitHub上下载的sqli_lab压缩包解压，找到phpstudy2018的安装路径，打开  PHPTutorial-&gt;WWW ,复制整个sqli_lab文件夹到WWW文件夹下.</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/WWW.png"></p>
+<p>到phpstudy的安装路径中启动php,<strong>（注意要先启动phpstudy,再往下，不然会找不到相关文件）</strong>再打开复制过来的sqli_lab-master文件夹，找到sql-connections打开，并且打开里面的db-creds.inc文件，将$dbpass数值改为root.</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/connection.jpg"></p>
+<p>浏览器输入地址：127.0.0.1/sqli-labs-master/，<strong>注意phpstudy默认的本地端口为8080，如果有使用需要更换端口</strong>.</p>
+<p>更换端口：在php窗口中选择 其他选项菜单 -&gt; phpstudy设置 -&gt; 端口常规设置，打开后可填入可用端口后点击应用即可</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/duankou.jpg"></p>
+<p>将网址填入浏览器后出现以下页面</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/database.jpg"></p>
+<p>点击Setup/reset Database for labs，出现以下页面表示环境搭建成功</p>
+<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/success.jpg"></p>
+<p><strong>到此，环境就搭建成功啦，可以开始奇妙的注入之旅辣！</strong></p>
 
     </div>
 
@@ -323,17 +339,21 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/life/" rel="tag"><i class="fa fa-tag"></i> life</a>
+              <a href="/tags/CTF/" rel="tag"><i class="fa fa-tag"></i> CTF</a>
+              <a href="/tags/WEB/" rel="tag"><i class="fa fa-tag"></i> WEB</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2022/01/25/homework/" rel="prev" title="相信热爱的我们">
+                  <i class="fa fa-chevron-left"></i> 相信热爱的我们
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%B8%80/" rel="next" title="SQL注入一">
-                  SQL注入一 <i class="fa fa-chevron-right"></i>
+                <a href="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/" rel="next" title="SQL注入二">
+                  SQL注入二 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
