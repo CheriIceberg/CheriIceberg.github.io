@@ -2987,3 +2987,6 @@ body {
 .OwO-body {
   max-width: 700px !important;
 }
+.OwO-items {
+  max-height: 110px !important;
+}
