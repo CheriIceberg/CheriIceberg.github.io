@@ -1,3 +1,4 @@
+https://cheriiceberg.github.io/2022/04/30/file-header/
 https://cheriiceberg.github.io/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/
 https://cheriiceberg.github.io/2022/04/24/burpsuit-extendtion/
 https://cheriiceberg.github.io/2022/04/10/doc/
@@ -10,6 +11,7 @@ https://cheriiceberg.github.io/
 https://cheriiceberg.github.io/tags/CTF/
 https://cheriiceberg.github.io/tags/WEB/
 https://cheriiceberg.github.io/tags/%E5%B7%A5%E5%85%B7/
+https://cheriiceberg.github.io/tags/MISC/
 https://cheriiceberg.github.io/categories/CTF/
 https://cheriiceberg.github.io/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/
 https://cheriiceberg.github.io/categories/Doc/
