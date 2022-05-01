@@ -339,7 +339,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-04-30 21:58:21 / 修改时间：21:58:43" itemprop="dateCreated datePublished" datetime="2022-04-30T21:58:21+08:00">2022-04-30</time>
+      <time title="创建时间：2022-04-30 21:58:21 / 修改时间：22:04:41" itemprop="dateCreated datePublished" datetime="2022-04-30T21:58:21+08:00">2022-04-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -369,93 +369,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <table>
-<thead>
-<tr>
-<th align="left">文件类型</th>
-<th align="left">文件头标识</th>
-<th align="left">文件尾标识</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">.7z</td>
-<td align="left">37 7A BC AF 27 1C</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">.GIF</td>
-<td align="left">47 49 46 38</td>
-<td align="left">00 3B</td>
-</tr>
-<tr>
-<td align="left">.jpg</td>
-<td align="left">FF D8 FF</td>
-<td align="left">FF D9</td>
-</tr>
-<tr>
-<td align="left">.png</td>
-<td align="left">89 50 4E 47</td>
-<td align="left">AE 42 60 82</td>
-</tr>
-<tr>
-<td align="left">.rar</td>
-<td align="left">52 61 72 21</td>
-<td align="left">C4 3D 7B 00 40 07 00</td>
-</tr>
-<tr>
-<td align="left">.zip</td>
-<td align="left">50 4B 03 04</td>
-<td align="left">50 4B</td>
-</tr>
-<tr>
-<td align="left">.pdf</td>
-<td align="left">25 50 44 46 2D 31 2E</td>
-<td align="left"></td>
-</tr>
-</tbody></table>
-<h3 id="0x00-zip压缩包伪加密分析"><a href="#0x00-zip压缩包伪加密分析" class="headerlink" title="0x00 zip压缩包伪加密分析"></a>0x00 zip压缩包伪加密分析</h3><p>zip压缩包16进制数据块的简单分析（详细分析的相关文章非常多，这里不再分析）</p>
-<p>需要重点注意三个数据标记块：</p>
-<h4 id="0000-第一块：压缩源文件数据块"><a href="#0000-第一块：压缩源文件数据块" class="headerlink" title="0000 第一块：压缩源文件数据块"></a>0000 第一块：压缩源文件数据块</h4><p><img src="/2022/04/30/file-header/504B.png"></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">（并非所有zip都是这样，但是字节位置代表信息一样）</span><br><span class="line">50 4B 03 04 : 头文件标记块（固定）</span><br><span class="line">14 00 ： 解压文件所需要的pkware版本</span><br><span class="line">01 00 ： 全局方式位标记（包含压缩包是否加密，该例子中为加密状态，第二个数		 字是计数则表示加密，偶数为不加密,包括00）</span><br><span class="line">00 00 ： 压缩方式</span><br><span class="line">7A 6D ： 最后修改文件时间</span><br><span class="line">9D 54 ： 最后修改文件日期</span><br><span class="line">E5 93 8C DD ： CRC-32校验码</span><br><span class="line">15 00 00 00 ： 压缩后尺寸</span><br><span class="line">09 00 00 00 ： 未压缩尺寸</span><br><span class="line">08 00 ： 文件名长度</span><br><span class="line">00 00 ： 扩展记录长度</span><br></pre></td></tr></table></figure>
-
-<h4 id="0001-第二块：压缩源文件目录区"><a href="#0001-第二块：压缩源文件目录区" class="headerlink" title="0001 第二块：压缩源文件目录区"></a>0001 第二块：压缩源文件目录区</h4><p><img src="/2022/04/30/file-header/504B0102.png"></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">50 4B 01 02 ： 目录中文件文件头标记</span><br><span class="line">3F 00 ： 压缩使用的pkware版本</span><br><span class="line">14 00 ： 解压文件所需pkware版本</span><br><span class="line">01 00 ： 全局方式位标记（跟数据块一样，这里表示有密码）</span><br><span class="line">00 00 ： 压缩方式</span><br><span class="line">7A 6D ： 最后修改文件时间</span><br><span class="line">9D 54 ： 最后修改文件日期</span><br><span class="line">E5 93 8C DD ： CRC-32校验</span><br><span class="line">15 00 00 00 ： 压缩后尺寸</span><br><span class="line">09 00 00 00 ： 未压缩尺寸</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<h4 id="0002-第三块：压缩源文件目录结束标志"><a href="#0002-第三块：压缩源文件目录结束标志" class="headerlink" title="0002 第三块：压缩源文件目录结束标志"></a>0002 第三块：压缩源文件目录结束标志</h4><p><img src="/2022/04/30/file-header/0506.png"></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">50 4B 05 06 ： 目录结束标志</span><br></pre></td></tr></table></figure>
-
-<h4 id="0003-伪加密的辨别方法"><a href="#0003-伪加密的辨别方法" class="headerlink" title="0003 伪加密的辨别方法"></a>0003 伪加密的辨别方法</h4><h5 id="0b00-无加密"><a href="#0b00-无加密" class="headerlink" title="0b00 无加密"></a>0b00 无加密</h5><p>压缩源文件数据区的全局加密为<code>00 00</code><strong>（或者是其他偶数的数值）</strong>，即图示中第二个方框中的内容</p>
-<p>同时压缩源文件目录区的全局方式位标记也为<code>00 00</code><strong>（或者是其他偶数的数值）</strong>（同样是图示中的第二个方框中内容）</p>
-<h5 id="0b01-伪加密"><a href="#0b01-伪加密" class="headerlink" title="0b01 伪加密"></a>0b01 伪加密</h5><p>压缩源文件数据区的全局加密为<code>00 00</code> <strong>（或者是其他偶数的数值）</strong>，同时压缩源文件目录区的全局方式位标记为<code>01 00</code><strong>（或者是其他奇数数值）</strong>。发现伪加密时，只要将目录区的数值更改为非加密数值即可</p>
-<h5 id="0b10-真加密"><a href="#0b10-真加密" class="headerlink" title="0b10 真加密"></a>0b10 真加密</h5><p>压缩源文件数据区的全局加密为<code>01 00</code> <strong>（或者是其他奇数数值）</strong>，且压缩源文件目录区的全局方式位标记为<code>01 00</code> <strong>（或者是其他奇数数值）</strong></p>
-<h3 id="0x01-RAR文件头详细解析"><a href="#0x01-RAR文件头详细解析" class="headerlink" title="0x01 RAR文件头详细解析"></a>0x01 RAR文件头详细解析</h3><p>以上表格中给出的为rar4的16进制文件格式，最新的rar5则有不同的16进制文件格式</p>
-<p>头：<code>52 61 72 21 1A 07 01 00</code></p>
-<p>尾：<code>1D 77 56 51 03 05 04 00</code></p>
-<p>rar5格式的16进制文件并非像rar4一样相对固定，数块的位数（大小）是动态变化的，下面主要解析rar4格式的16进制文件(rar4文件现在比较少见，分析使用攻防世界中MISC的simpleRAR题目的文件)</p>
-<p>rar文件通常包含 <strong>标记块</strong>、<strong>压缩文件头块</strong>、<strong>文件头块</strong>、<strong>注释头块</strong>，每一块中都包含以下内容：<br>|名称|大小|说明|<br>|—–|—–|—–|<br>| HEAD_CRC | 2字节 | 所有块或块部分的CRC |<br>|HEAD_TYPE|1字节|块类型|<br>| HEAD_FLAGS   |  2字节     | 块标记 |<br>|HEAD_SIZE|2字节|块大小|</p>
-<p>块类型的类型有以下几个：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">标记块：HEAD_TYPE=0x72</span><br><span class="line">压缩文件头：HEAD_TYPE=0x73</span><br><span class="line">文件头：HEAD_TYPE=0x74</span><br><span class="line">旧风格的注释头：HEAD_TYPE=0x75</span><br><span class="line">旧风格的用户身份信息：HEAD_TYPE=0x76</span><br><span class="line">旧风格的子块：HEAD_TYPE=0x77</span><br><span class="line">旧风格的恢复记录：HEAD_TYPE=0X78</span><br><span class="line">旧风格的用户身份信息：HEAD_TYPE=0X79</span><br><span class="line">子块：HEAD_TYPE=0x7A</span><br><span class="line">最后的结束块：HEAD_TYPE=0x7B</span><br></pre></td></tr></table></figure>
-
-<p>下面分析几个数据块</p>
-<h4 id="0000-标记块"><a href="#0000-标记块" class="headerlink" title="0000 标记块"></a>0000 标记块</h4><p><img src="/2022/04/30/file-header/rarheader.png"></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">56 61 ： HEAD_CRC,两个字节，所有rar文件都有</span><br><span class="line">72 ： 块类型（HEAD_TYPE），标记块</span><br><span class="line">21 1A ： 块标记（HEAD_FLAGS）,两个字节</span><br><span class="line">07 00  ： 块大小，即56 61 72 21 1A 07 00 一共7个字节</span><br></pre></td></tr></table></figure>
-
-<h4 id="0001-压缩文件头"><a href="#0001-压缩文件头" class="headerlink" title="0001 压缩文件头"></a>0001 压缩文件头</h4><p><img src="/2022/04/30/file-header/yasuowenjian.png"></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">CF 90 ： 压缩文件头CRC校验值</span><br><span class="line">73 ： 头类型，为压缩文件头</span><br><span class="line">00 00 ： 位标记块</span><br><span class="line">0D 00 ： 文件头大小即000D,13字节</span><br><span class="line">后面还有6个保留字节</span><br></pre></td></tr></table></figure>
-
-<h4 id="0002-文件头"><a href="#0002-文件头" class="headerlink" title="0002 文件头"></a>0002 文件头</h4><p><img src="/2022/04/30/file-header/filehead.png"></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">D5 56 ： HEAD_CRC,文件头的CRC校验码</span><br><span class="line">74 ： HEAD_TYPE,块类型，74表示文件头</span><br><span class="line">20 90 ： HEAD_FLAGS</span><br><span class="line">2D 00 ： HEAD_SIZE，文件头全部大小</span><br><span class="line">10 00 00 00 ：PACK_SIZE，已压缩文件大小</span><br><span class="line">10 00 00 00 ：UNP_SIZE，未压缩文件大小</span><br><span class="line">02：HOST_OS，1字节，保存压缩文件使用的操作系统，02代表windows</span><br><span class="line">C7 88 67 36 ：FILE_CRC，4字节，文件的CRC值</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="0003-结尾块"><a href="#0003-结尾块" class="headerlink" title="0003 结尾块"></a>0003 结尾块</h4><p><img src="/2022/04/30/file-header/end.png"></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">C4 3D 7B 00 40 07 00 ： 固定的结尾块</span><br></pre></td></tr></table></figure>
-
-<p>（所以按照此分析，攻防世界该题目的secret.png的文件头表示应该改成74）</p>
-<h3 id="0x02-png文件分析"><a href="#0x02-png文件分析" class="headerlink" title="0x02 .png文件分析"></a>0x02 .png文件分析</h3><p>png文件涉及到高度、宽度的隐写，要分析16进制文件中的高度宽度的位置：</p>
-<p><img src="/2022/04/30/file-header/png.png"></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">89 50 4E 47 0D 0A 1A 0A ： 开头8个字节，表示png文件</span><br><span class="line">接下来是IHDR数据块</span><br><span class="line">00 00 00 0D ： 表示IHDR数据块长度为13字节</span><br><span class="line">48 49 44 52 ： IHDR标识</span><br><span class="line">00 00 02 C4 ： 表示图像宽，708像素（隐写的关键）</span><br><span class="line">00 00 01 61 ： 表示图像高度，353像素（隐写关键）</span><br><span class="line">08 ： 色深，表示2^8=256色图像</span><br><span class="line">06 ： 颜色类型</span><br><span class="line">00 ： PNG Spec规定此处总为0（非0值为将来使用更好的压缩方法预留），表示使压缩方法(LZ77派生算法)</span><br><span class="line">00 ： 同上</span><br><span class="line">00 ： 非隔行扫描</span><br><span class="line">77 6C BC 43 ： CRC校验码</span><br></pre></td></tr></table></figure>
-
-<p>图像宽度与高度不一定是正确的，可以用CRC校验码进行计算得出，所以图片隐写可以算出真实的高度后进行修改。</p>
-
+          <p>常见文件16进制文件头汇总！！</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/30/file-header/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
