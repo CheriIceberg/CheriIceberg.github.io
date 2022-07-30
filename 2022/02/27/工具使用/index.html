@@ -24,12 +24,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cheriiceberg.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-  <meta name="description" content="使用的工具： pyinstxtractor.py 解压工具（将exe文件解压为一个文件夹）">
+  <meta name="description" content="使用的工具： pyinstxtractor.py 解压工具（将exe文件解压为一个文件夹）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python打包的exe解包为.py文件">
 <meta property="og:url" content="https://cheriiceberg.github.io/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Pnnnnnj">
-<meta property="og:description" content="使用的工具： pyinstxtractor.py 解压工具（将exe文件解压为一个文件夹）">
+<meta property="og:description" content="使用的工具： pyinstxtractor.py 解压工具（将exe文件解压为一个文件夹）">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cheriiceberg.github.io/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/pycharminstall.jpg">
 <meta property="og:image" content="https://cheriiceberg.github.io/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/uncom.jpg">
@@ -61,7 +61,7 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-
+  <link src="">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -159,7 +159,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85"><span class="nav-text">0x00    工具安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-exe%E5%8C%85%E8%A7%A3%E5%8E%8B"><span class="nav-text">0x01    exe包解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-%E5%A4%8D%E5%8E%9F%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-text">0x02    复原头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-%E9%80%86%E5%90%91-pyc%E6%96%87%E4%BB%B6"><span class="nav-text">0x03    逆向.pyc文件</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#x00-%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85"><span class="nav-text">0x00 工具安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x01-exe%E5%8C%85%E8%A7%A3%E5%8E%8B"><span class="nav-text">0x01 exe包解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x02-%E5%A4%8D%E5%8E%9F%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-text">0x02 复原头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x03-%E9%80%86%E5%90%91.pyc%E6%96%87%E4%BB%B6"><span class="nav-text">0x03 逆向.pyc文件</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -174,13 +174,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -294,37 +294,36 @@
         <p>使用的工具：</p>
 <p>pyinstxtractor.py 解压工具（将exe文件解压为一个文件夹）</p>
 <span id="more"></span>
-
 <p>python包：uncompyle6,pyc反编译工具包</p>
 <p>winhex或010Editor等其他二进制查看修改工具</p>
-<h3 id="0x00-工具安装"><a href="#0x00-工具安装" class="headerlink" title="0x00    工具安装"></a>0x00    工具安装</h3><p><strong>uncompyle6安装：</strong></p>
+<h3 id="x00-工具安装">0x00 工具安装</h3>
+<p><strong>uncompyle6安装：</strong></p>
 <p>方法一：</p>
 <p>pip安装</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip3 install uncompyle6</span><br></pre></td></tr></table></figure>
-
 <p>方法二：</p>
-<p>使用pycharm安装，在pycharm的设置里依次点击  python解释器  —&gt;  ‘+’</p>
-<p><img src="/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/pycharminstall.jpg"></p>
-<p><img src="/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/uncom.jpg"></p>
+<p>使用pycharm安装，在pycharm的设置里依次点击 python解释器 —&gt; '+'</p>
+<p><img src="pycharminstall.jpg" /></p>
+<p><img src="uncom.jpg" /></p>
 <p>在搜索框内填入要安装的包后点击安装即可</p>
 <p><strong>pyinstxtractor.py工具获取：</strong></p>
-<p>在网页：<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/pyinstallerextractor/%E4%B8%AD%E4%B8%8B%E8%BD%BD%E8%8E%B7%E5%8F%96">https://sourceforge.net/projects/pyinstallerextractor/中下载获取</a></p>
+<p>在网页：https://sourceforge.net/projects/pyinstallerextractor/中下载获取</p>
 <p><strong>winhex工具下载</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">链接：https://pan.baidu.com/s/15xVANHw6zwS89YCXcDHoEg </span><br><span class="line">提取码：7whk</span><br></pre></td></tr></table></figure>
-
-<h3 id="0x01-exe包解压"><a href="#0x01-exe包解压" class="headerlink" title="0x01    exe包解压"></a>0x01    exe包解压</h3><p>首先使用pyinstxtractor.py进行拆包</p>
+<h3 id="x01-exe包解压">0x01 exe包解压</h3>
+<p>首先使用pyinstxtractor.py进行拆包</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 pyinstxtractor.py 要拆包的文件名</span><br></pre></td></tr></table></figure>
-
-<p>执行完后会出现一个    原文件名+_extracted的文件夹,</p>
-<p><img src="/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/exebreak.jpg"></p>
-<h3 id="0x02-复原头文件"><a href="#0x02-复原头文件" class="headerlink" title="0x02    复原头文件"></a>0x02    复原头文件</h3><p>在新生成的文件夹中存在exe文件同名且无后缀的文件与struct,用winhex打开两个文件</p>
+<p>执行完后会出现一个 原文件名+_extracted的文件夹,</p>
+<p><img src="exebreak.jpg" /></p>
+<h3 id="x02-复原头文件">0x02 复原头文件</h3>
+<p>在新生成的文件夹中存在exe文件同名且无后缀的文件与struct,用winhex打开两个文件</p>
 <p>将struct文件开头的16个字节<strong>（也有说是8个字节，反正将文本为pyi0的部分都恢复回去QAQ）</strong>复制粘贴到无后缀的文件头中</p>
-<p><img src="/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/copypaste.jpg"></p>
+<p><img src="copypaste.jpg" /></p>
 <p>修改后保存，将无后缀的文件添加上.pyc的后缀</p>
-<h3 id="0x03-逆向-pyc文件"><a href="#0x03-逆向-pyc文件" class="headerlink" title="0x03    逆向.pyc文件"></a>0x03    逆向.pyc文件</h3><p>使用uncompyle包进行逆向</p>
+<h3 id="x03-逆向.pyc文件">0x03 逆向.pyc文件</h3>
+<p>使用uncompyle包进行逆向</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uncompyle6 文件名.pyc &gt; 文件名.py</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2022/02/27/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/pyc_py.jpg"></p>
+<p><img src="pyc_py.jpg" /></p>
 <p>拆包完成，可以打开.py文件查看代码辣！</p>
 
     </div>
@@ -414,6 +413,12 @@
   
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 <script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":true,"envId":"https://twikoo-p91w.vercel.app","el":"#twikoo-comments"}</script>
